@@ -15,9 +15,9 @@ func main() {
 		BaseURL: u,
 	}
 
-	users, err := client.WithToken(token).GetProduct(10)
+	products, err := client.WithToken(token).GetProduct(10)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(users)
+	log.Println(products)
 }

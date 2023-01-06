@@ -24,13 +24,11 @@ func TestPactProvider(t *testing.T) {
 	// Verify the Provider - Tag-based Published Pacts for any known consumers
 	_, err := pact.VerifyProvider(t, types.VerifyRequest{
 		ProviderBaseURL:    fmt.Sprintf("http://127.0.0.1:%d", port),
-		Tags:               []string{"master"},
+		Tags:               []string{"dev"},
 		FailIfNoPactsFound: false,
 		// Use this if you want to test without the Pact Broker
 		// PactURLs:                   []string{filepath.FromSlash(fmt.Sprintf("%s/golistingservice-goproductservice.json", os.Getenv("PACT_DIR")))},
 		BrokerURL:                  fmt.Sprintf("%s://%s", os.Getenv("PACT_BROKER_PROTO"), os.Getenv("PACT_BROKER_URL")),
-		BrokerUsername:             os.Getenv("PACT_BROKER_USERNAME"),
-		BrokerPassword:             os.Getenv("PACT_BROKER_PASSWORD"),
 		PublishVerificationResults: true,
 		ProviderVersion:            "1.0.0",
 		StateHandlers:              stateHandlers,
@@ -60,7 +58,7 @@ var stateHandlers = types.StateHandlers{
 		productRepository = trendyolMillaExist
 		return nil
 	},
-	"Product trendyolMilla does not exist": func() error {
+	"Product trendyolmilla does not exist": func() error {
 		productRepository = trendyolMillaDoesNotExist
 		return nil
 	},

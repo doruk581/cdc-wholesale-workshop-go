@@ -11,20 +11,17 @@ import (
 	"net/url"
 )
 
-// Client is our consumer interface to the Listing API
 type Client struct {
 	BaseURL    *url.URL
 	httpClient *http.Client
 	Token      string
 }
 
-// WithToken applies a token to the
 func (c *Client) WithToken(token string) *Client {
 	c.Token = token
 	return c
 }
 
-// GetProduct gets a single product from the API
 func (c *Client) GetProduct(id int) (*model.Product, error) {
 	req, err := c.newRequest("GET", fmt.Sprintf("/product/%d", id), nil)
 	if err != nil {
@@ -50,7 +47,6 @@ func (c *Client) GetProduct(id int) (*model.Product, error) {
 
 }
 
-// GetProducts gets all products from the API
 func (c *Client) GetProducts() ([]model.Product, error) {
 	req, err := c.newRequest("GET", "/products", nil)
 	if err != nil {

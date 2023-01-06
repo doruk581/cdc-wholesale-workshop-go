@@ -17,8 +17,6 @@ deploy-consumer: install
 	@pact-broker can-i-deploy \
 		--pacticipant $(CONSUMER_NAME) \
 		--broker-base-url ${PACT_BROKER_PROTO}://$(PACT_BROKER_URL) \
-		--broker-username $(PACT_BROKER_USERNAME) \
-		--broker-password $(PACT_BROKER_PASSWORD) \
 		--latest
 
 deploy-provider: install
@@ -26,8 +24,6 @@ deploy-provider: install
 	@pact-broker can-i-deploy \
 		--pacticipant $(PROVIDER_NAME) \
 		--broker-base-url ${PACT_BROKER_PROTO}://$(PACT_BROKER_URL) \
-		--broker-username $(PACT_BROKER_USERNAME) \
-		--broker-password $(PACT_BROKER_PASSWORD) \
 		--latest
 
 publish: install
@@ -35,11 +31,6 @@ publish: install
 	go run consumer/client/pact/publish.go
 	@echo
 	@echo "Pact contract publishing complete!"
-	@echo
-	@echo "Head over to $(PACT_BROKER_PROTO)://$(PACT_BROKER_URL) and login with"
-	@echo "=> Username: $(PACT_BROKER_USERNAME)"
-	@echo "=> Password: $(PACT_BROKER_PASSWORD)"
-	@echo "to see your published contracts.	"
 
 unit:
 	@echo "--- 🔨Running Unit tests "

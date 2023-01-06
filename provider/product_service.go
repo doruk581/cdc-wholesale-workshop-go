@@ -49,7 +49,6 @@ func IsAuthenticated(h http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-// GetProduct fetches a product if authenticated and exists
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
@@ -67,7 +66,6 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetProducts fetches all users
 func GetProducts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusOK)

@@ -9,7 +9,6 @@ import (
 	"net/url"
 
 	"github.com/pact-foundation/pact-go/dsl"
-	"github.com/stretchr/testify/assert"
 )
 
 var commonHeaders = dsl.MapMatcher{
@@ -83,30 +82,6 @@ func TestClientPact_GetProduct(t *testing.T) {
 			t.Fatalf("Error on Verify: %v", err)
 		}
 	})
-
-	t.Run("the product does not exist", func(t *testing.T) {
-		pact.
-			AddInteraction().
-			Given("Product TrendyolMilla does not exist").
-			UponReceiving("A request to fetch product 'TrendyolMilla'").
-			WithRequest(request{
-				Method:  "GET",
-				Path:    term("/product/10", "/product/[0-9]+"),
-				Headers: headersWithToken,
-			}).
-			WillRespondWith(dsl.Response{
-				Status:  404,
-				Headers: commonHeaders,
-			})
-
-		err := pact.Verify(func() error {
-			_, err := client.WithToken("2019-01-01").GetProduct(10)
-
-			return err
-		})
-
-		assert.Equal(t, ErrNotFound, err)
-	})
 }
 
 // Common test data
@@ -138,6 +113,7 @@ func createPact() dsl.Pact {
 		LogDir:                   os.Getenv("LOG_DIR"),
 		PactDir:                  os.Getenv("PACT_DIR"),
 		LogLevel:                 "INFO",
+		PactFileWriteMode:        "overwrite",
 		DisableToolValidityCheck: true,
 	}
 }

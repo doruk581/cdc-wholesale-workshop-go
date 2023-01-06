@@ -20,12 +20,10 @@ func main() {
 
 	fmt.Println("Publishing Pact files to broker", os.Getenv("PACT_DIR"), os.Getenv("PACT_BROKER_URL"))
 	err := p.Publish(types.PublishRequest{
-		PactURLs:        []string{filepath.FromSlash(fmt.Sprintf("%s/goadminservice-gouserservice.json", os.Getenv("PACT_DIR")))},
+		PactURLs:        []string{filepath.FromSlash(fmt.Sprintf("%s/golistingservice-goproductservice.json", os.Getenv("PACT_DIR")))},
 		PactBroker:      fmt.Sprintf("%s://%s", os.Getenv("PACT_BROKER_PROTO"), os.Getenv("PACT_BROKER_URL")),
 		ConsumerVersion: version,
-		Tags:            []string{"master"},
-		BrokerUsername:  os.Getenv("PACT_BROKER_USERNAME"),
-		BrokerPassword:  os.Getenv("PACT_BROKER_PASSWORD"),
+		Tags:            []string{"dev"},
 	})
 
 	if err != nil {

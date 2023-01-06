@@ -16,7 +16,6 @@ import (
 func TestClientUnit_GetProduct(t *testing.T) {
 	productID := 10
 
-	// Setup mock server
 	server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		assert.Equal(t, req.URL.String(), fmt.Sprintf("/product/%d", productID))
 		product, _ := json.Marshal(model.Product{
@@ -29,7 +28,6 @@ func TestClientUnit_GetProduct(t *testing.T) {
 	}))
 	defer server.Close()
 
-	// Setup client
 	u, _ := url.Parse(server.URL)
 	client := &Client{
 		BaseURL: u,
@@ -37,6 +35,5 @@ func TestClientUnit_GetProduct(t *testing.T) {
 	product, err := client.GetProduct(productID)
 	assert.NoError(t, err)
 
-	// Assert basic fact
 	assert.Equal(t, product.ID, productID)
 }
